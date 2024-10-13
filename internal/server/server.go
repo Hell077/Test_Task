@@ -1,9 +1,9 @@
 package server
 
 import (
+	"github.com/Hell077/Test_Task/internal/api"
 	"github.com/gofiber/fiber/v2"
 	"log"
-	"test/internal/api"
 )
 
 func Server() {
