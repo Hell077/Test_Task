@@ -44,10 +44,16 @@ func runMigrationFile(db *sql.DB, migrationFilePath string) error {
 
 func CheckExist() bool {
 	database.Connect()
-	res := database.DB.QueryRow("select * from songs")
-	if res != nil {
-		return true
+	var tableName string
+	err := database.DB.QueryRow("SELECT to_regclass('public.songs')").Scan(&tableName)
+
+	if err != nil {
+		log.Println("Error querying the database:", err)
+		return false
+	}
+	if tableName == "" {
+		return false
 	}
 
-	return false
+	return true
 }
